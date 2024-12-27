@@ -1,11 +1,17 @@
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
-import { Welcome } from '../components/Welcome/Welcome';
+'use client';
+
+import { Stack, Title } from '@mantine/core';
+import GameCreator from './GameCreator';
+import GameList from './GameList';
+import useGameList from './useGameList';
 
 export default function HomePage() {
+  const gameList = useGameList();
   return (
-    <>
-      <Welcome />
-      <ColorSchemeToggle />
-    </>
+    <Stack align="center">
+      <Title order={1}>Forehead Game</Title>
+      <GameCreator />
+      <GameList />
+    </Stack>
   );
 }
