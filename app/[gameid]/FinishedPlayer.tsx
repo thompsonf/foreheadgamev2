@@ -14,29 +14,28 @@ export default function RemainingPlayer({
   isLocked: boolean;
   player: IPlayer;
 }) {
-  const [isShown, setIsShown] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isFinishing, setIsFinished] = useState(false);
+  const [isUndoing, setIsUndoing] = useState(false);
 
   return (
     <>
       <Player
         content={
-          !isLocked ? (
-            <Group gap="sm">
-              <Button onClick={() => setIsShown(!isShown)} size="compact-md">
-                {isShown ? 'Hide' : 'Show'}
-              </Button>
-              <Button color="violet" onClick={() => setIsFinished(true)} size="compact-md">
-                Done
-              </Button>
-              <Button color="red" onClick={() => setIsDeleting(true)} size="compact-md">
-                Delete
-              </Button>
-            </Group>
-          ) : null
+          <Stack>
+            <Text>Finished {new Date(player.timeFinished ?? 0).toLocaleTimeString()}</Text>
+            {!isLocked ? (
+              <Group gap="sm">
+                <Button color="violet" onClick={() => setIsUndoing(true)} size="compact-md">
+                  Undo
+                </Button>
+                <Button color="red" onClick={() => setIsDeleting(true)} size="compact-md">
+                  Delete
+                </Button>
+              </Group>
+            ) : null}
+          </Stack>
         }
-        isShown={isShown}
+        isShown={true}
         player={player}
       />
       <Modal
@@ -61,21 +60,21 @@ export default function RemainingPlayer({
       </Modal>
       <Modal
         centered={true}
-        onClose={() => setIsFinished(false)}
-        opened={isFinishing}
-        title="Confirm Done"
+        onClose={() => setIsUndoing(false)}
+        opened={isUndoing}
+        title="Confirm Undo"
       >
-        Are you sure <strong>{player.name}</strong> is done?
+        Move <strong>{player.name}</strong> back to the <strong>Remaining</strong> section?
         <Group mt="lg" justify="flex-end">
-          <Button onClick={() => setIsFinished(false)}>Cancel</Button>
+          <Button onClick={() => setIsUndoing(false)}>Cancel</Button>
           <Button
             onClick={() => {
-              update(ref(db, `games/${gameID}/players/${player.id}`), { timeFinished: Date.now() });
-              setIsFinished(false);
+              update(ref(db, `games/${gameID}/players/${player.id}`), { timeFinished: null });
+              setIsUndoing(false);
             }}
             color="violet"
           >
-            Done
+            Undo
           </Button>
         </Group>
       </Modal>

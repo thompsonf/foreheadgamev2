@@ -14,14 +14,15 @@ export default function useGame(gameID: string): null | IGame {
   useEffect(() => {
     const gameRef = ref(db, `games/${gameID}`);
     const removeOnValue = onValue(gameRef, (snapshot) => {
-      if (snapshot.key == null) {
-        throw new Error('null snapshot key');
+      if (snapshot.key == null || snapshot.val() == null) {
+        setGame(null);
+      } else {
+        setGame({
+          id: snapshot.key,
+          name: snapshot.val().name,
+          timestamp: snapshot.val().timestamp,
+        });
       }
-      setGame({
-        id: snapshot.key,
-        name: snapshot.val().name,
-        timestamp: snapshot.val().timestamp,
-      });
     });
     return removeOnValue;
   }, [gameID]);

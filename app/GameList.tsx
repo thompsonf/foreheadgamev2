@@ -10,7 +10,7 @@ export default function GameList() {
 
   if (gameList == null) {
     return (
-      <List>
+      <List size="lg">
         {Array.from({ length: 8 }, (_, idx) => (
           <List.Item key={idx}>
             <Skeleton height={8} mt={6} radius="xl" width={500} />
@@ -21,7 +21,7 @@ export default function GameList() {
   }
 
   return (
-    <List>
+    <List size="lg">
       {gameList.map((game) => (
         <List.Item key={game.id}>
           <Anchor href={`/${game.id}`}>
