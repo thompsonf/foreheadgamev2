@@ -92,7 +92,6 @@ function GamePage() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, 300px)',
-            justifyContent: 'center',
             gap: 8,
           }}
         >
@@ -108,7 +107,6 @@ function GamePage() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, 300px)',
-            justifyContent: 'center',
             gap: 8,
           }}
         >
