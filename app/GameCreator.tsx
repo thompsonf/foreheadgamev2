@@ -16,7 +16,7 @@ export default function GameCreator() {
       timestamp: Date.now(),
       name,
     });
-    router.push(`/${result.key}`);
+    router.push(`/game?id=${result.key}`);
   };
 
   return (

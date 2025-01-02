@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { redirect, useParams } from 'next/navigation';
+import { Suspense, useState } from 'react';
+import { redirect, useParams, useSearchParams } from 'next/navigation';
 import { IconLock, IconLockOpen } from '@tabler/icons-react';
 import { ref, remove } from 'firebase/database';
 import {
@@ -22,8 +22,21 @@ import RemainingPlayer from './RemainingPlayer';
 import useGame from './useGame';
 import usePlayerList from './usePlayerList';
 
-export default function GamePage() {
-  const { gameid: gameID } = useParams<{ gameid: string }>();
+export default function GamePageWrapper() {
+  return (
+    <Suspense>
+      <GamePage />
+    </Suspense>
+  );
+}
+
+function GamePage() {
+  const params = useSearchParams();
+  const gameID = params.get('id');
+
+  if (gameID == null) {
+    throw new Error('invalid game ID');
+  }
 
   const [isLocked, setIsLocked] = useState(true);
   const [isDeleting, setIsDeleting] = useState(false);

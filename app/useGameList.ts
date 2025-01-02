@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { onValue, orderByChild, query, ref } from 'firebase/database';
-import { IGame } from './[gameid]/useGame';
+import { IGame } from './game/useGame';
 import { db } from './db';
 
 export default function useGameList(): null | ReadonlyArray<IGame> {

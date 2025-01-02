@@ -1,11 +1,9 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { Anchor, List, Skeleton } from '@mantine/core';
 import useGameList from './useGameList';
 
 export default function GameList() {
-  const router = useRouter();
   const gameList = useGameList();
 
   if (gameList == null) {
@@ -24,7 +22,7 @@ export default function GameList() {
     <List size="lg">
       {gameList.map((game) => (
         <List.Item key={game.id}>
-          <Anchor href={`/${game.id}`}>
+          <Anchor href={`/game?id=${game.id}`}>
             {game.name} - {new Date(game.timestamp).toLocaleString()}
           </Anchor>
         </List.Item>
