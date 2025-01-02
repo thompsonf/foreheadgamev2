@@ -23,6 +23,7 @@ import useGame from './useGame';
 import usePlayerList from './usePlayerList';
 
 export default function GamePageWrapper() {
+  console.log('rendering game wrapper');
   return (
     <Suspense>
       <GamePage />
@@ -33,6 +34,8 @@ export default function GamePageWrapper() {
 function GamePage() {
   const params = useSearchParams();
   const gameID = params.get('id');
+
+  console.log('rendering game page with id', gameID);
 
   if (gameID == null) {
     throw new Error('invalid game ID');
