@@ -18,11 +18,25 @@ export default function GamePage() {
 
   return (
     <>
-      <Grid>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'max-content',
+          justifyContent: 'center',
+          rowGap: 8,
+        }}
+      >
+        {playerList?.map((player) => (
+          <RemainingPlayer isLocked={isLocked} key={player.id} player={player} />
+        ))}
+      </div>
+      {/* <Grid align="center" justify="center" style={{ rowGap: '8px' }}>
         <Grid.Col span="content">
-          {playerList?.map((player) => <RemainingPlayer key={player.id} player={player} />)}
+          {playerList?.map((player) => (
+            <RemainingPlayer isLocked={isLocked} key={player.id} player={player} />
+          ))}
         </Grid.Col>
-      </Grid>
+      </Grid> */}
       <ActionIcon
         onClick={() => setIsLocked(!isLocked)}
         variant="default"
