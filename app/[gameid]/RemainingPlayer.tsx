@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import { ref, remove, update } from 'firebase/database';
 import { Button, Card, Group, Modal, Stack, Text } from '@mantine/core';
+import { db } from '../db';
 import { IPlayer } from './usePlayerList';
 
 export default function RemainingPlayer({
+  gameID,
   isLocked,
   player,
 }: {
+  gameID: string;
   isLocked: boolean;
   player: IPlayer;
 }) {
@@ -56,7 +60,13 @@ export default function RemainingPlayer({
         Are you sure you want to delete {player.name}?
         <Group mt="lg" justify="flex-end">
           <Button onClick={() => setIsDeleting(false)}>Cancel</Button>
-          <Button onClick={() => {}} color="red">
+          <Button
+            onClick={() => {
+              remove(ref(db, `games/${gameID}/players/${player.id}`));
+              setIsDeleting(false);
+            }}
+            color="red"
+          >
             Delete
           </Button>
         </Group>
@@ -70,7 +80,13 @@ export default function RemainingPlayer({
         Are you sure {player.name} is done?
         <Group mt="lg" justify="flex-end">
           <Button onClick={() => setIsFinished(false)}>Cancel</Button>
-          <Button onClick={() => {}} color="violet">
+          <Button
+            onClick={() => {
+              update(ref(db, `games/${gameID}/players/${player.id}`), { timeFinished: Date.now() });
+              setIsFinished(false);
+            }}
+            color="violet"
+          >
             Done
           </Button>
         </Group>

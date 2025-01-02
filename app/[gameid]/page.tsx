@@ -27,7 +27,12 @@ export default function GamePage() {
         }}
       >
         {playerList?.map((player) => (
-          <RemainingPlayer isLocked={isLocked} key={player.id} player={player} />
+          <RemainingPlayer
+            gameID={game?.id ?? ''}
+            isLocked={isLocked}
+            key={player.id}
+            player={player}
+          />
         ))}
       </div>
       {/* <Grid align="center" justify="center" style={{ rowGap: '8px' }}>
