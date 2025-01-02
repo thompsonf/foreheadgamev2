@@ -4,7 +4,17 @@ import { Suspense, useState } from 'react';
 import { redirect, useSearchParams } from 'next/navigation';
 import { IconLock, IconLockOpen } from '@tabler/icons-react';
 import { ref, remove } from 'firebase/database';
-import { ActionIcon, Button, Divider, Group, Loader, Modal, Stack, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Button,
+  Center,
+  Divider,
+  Group,
+  Loader,
+  Modal,
+  Stack,
+  Title,
+} from '@mantine/core';
 import ColorSchemeSwitcher from '../ColorSchemeSwitcher';
 import { db } from '../db';
 import FloatingControls from '../FloatingControls';
@@ -37,7 +47,11 @@ function GamePage() {
   const playerLists = usePlayerLists(gameID);
 
   if (game == null || playerLists == null) {
-    return <Loader />;
+    return (
+      <Center h="100vh">
+        <Loader />
+      </Center>
+    );
   }
 
   const [remaining, finished] = playerLists;
