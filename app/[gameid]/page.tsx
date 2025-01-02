@@ -44,7 +44,7 @@ export default function GamePage() {
         aria-label="Toggle color scheme"
         style={{ position: 'fixed', bottom: 8, right: 8, borderRadius: '100%' }}
       >
-        {isLocked ? <IconLock stroke={1.5} /> : <IconLockOpen stroke={1.5} />}
+        {isLocked ? <IconLockOpen stroke={1.5} /> : <IconLock stroke={1.5} />}
       </ActionIcon>
     </>
   );
