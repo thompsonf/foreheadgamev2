@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Anchor, List, Skeleton } from '@mantine/core';
 import useGameList from './useGameList';
 
-export default function GameCreator() {
+export default function GameList() {
   const router = useRouter();
   const gameList = useGameList();
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { onValue, orderByChild, query, ref } from 'firebase/database';
 import { db } from '../db';
 
-interface IPlayer {
+export interface IPlayer {
   forehead: string;
   id: string;
   name: string;

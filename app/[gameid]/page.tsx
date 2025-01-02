@@ -1,20 +1,37 @@
 'use client';
 
+import { useState } from 'react';
 import { useParams } from 'next/navigation';
+import { IconLock, IconLockOpen } from '@tabler/icons-react';
+import { ActionIcon, Grid } from '@mantine/core';
+import RemainingPlayer from './RemainingPlayer';
 import useGame from './useGame';
 import usePlayerList from './usePlayerList';
 
 export default function GamePage() {
   const { gameid: gameID } = useParams<{ gameid: string }>();
 
+  const [isLocked, setIsLocked] = useState(false);
+
   const game = useGame(gameID);
   const playerList = usePlayerList(gameID);
 
   return (
-    <div>
-      <div>GameID is: {gameID}</div>
-      <div style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(game, null, 2)}</div>
-      <div style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(playerList, null, 2)}</div>
-    </div>
+    <>
+      <Grid>
+        <Grid.Col span="content">
+          {playerList?.map((player) => <RemainingPlayer key={player.id} player={player} />)}
+        </Grid.Col>
+      </Grid>
+      <ActionIcon
+        onClick={() => setIsLocked(!isLocked)}
+        variant="default"
+        size="xl"
+        aria-label="Toggle color scheme"
+        style={{ position: 'fixed', bottom: 8, right: 8, borderRadius: '100%' }}
+      >
+        {isLocked ? <IconLock stroke={1.5} /> : <IconLockOpen stroke={1.5} />}
+      </ActionIcon>
+    </>
   );
 }
