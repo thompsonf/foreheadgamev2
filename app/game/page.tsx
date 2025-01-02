@@ -78,9 +78,11 @@ function GamePage() {
             <Title order={1}>{game.name}</Title>
             <Title order={2}>{new Date(game.timestamp).toLocaleString()}</Title>
           </div>
-          <Button color="red" onClick={() => setIsDeleting(true)}>
-            Delete Game
-          </Button>
+          {!isLocked && (
+            <Button color="red" onClick={() => setIsDeleting(true)}>
+              Delete Game
+            </Button>
+          )}
         </Group>
         <Divider my="md" />
         {!isLocked && (
