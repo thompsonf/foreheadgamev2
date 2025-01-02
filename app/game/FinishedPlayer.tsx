@@ -3,16 +3,16 @@ import { ref, remove, update } from 'firebase/database';
 import { Button, Group, Modal, Stack, Text } from '@mantine/core';
 import { db } from '../db';
 import Player from './Player';
-import { IPlayer } from './usePlayerList';
+import { IFinishedPlayer } from './usePlayerLists';
 
-export default function RemainingPlayer({
+export default function FinishedPlayer({
   gameID,
   isLocked,
   player,
 }: {
   gameID: string;
   isLocked: boolean;
-  player: IPlayer;
+  player: IFinishedPlayer;
 }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isUndoing, setIsUndoing] = useState(false);
@@ -22,7 +22,7 @@ export default function RemainingPlayer({
       <Player
         content={
           <Stack>
-            <Text>Finished {new Date(player.timeFinished ?? 0).toLocaleTimeString()}</Text>
+            <Text>Finished {new Date(player.timeFinished).toLocaleTimeString()}</Text>
             {!isLocked ? (
               <Group gap="sm">
                 <Button color="violet" onClick={() => setIsUndoing(true)} size="compact-md">

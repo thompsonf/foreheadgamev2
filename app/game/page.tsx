@@ -12,7 +12,7 @@ import FinishedPlayer from './FinishedPlayer';
 import PlayerCreator from './PlayerCreator';
 import RemainingPlayer from './RemainingPlayer';
 import useGame from './useGame';
-import usePlayerList from './usePlayerList';
+import usePlayerLists from './usePlayerLists';
 
 export default function GamePageWrapper() {
   return (
@@ -34,22 +34,13 @@ function GamePage() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   const game = useGame(gameID);
-  const playerList = usePlayerList(gameID);
+  const playerLists = usePlayerLists(gameID);
 
-  if (game == null || playerList == null) {
+  if (game == null || playerLists == null) {
     return <Loader />;
   }
 
-  const remaining = [];
-  const finished = [];
-
-  for (const player of playerList) {
-    if (player.timeFinished == null) {
-      remaining.push(player);
-    } else {
-      finished.push(player);
-    }
-  }
+  const [remaining, finished] = playerLists;
 
   return (
     <div
@@ -92,12 +83,7 @@ function GamePage() {
           }}
         >
           {remaining.map((player) => (
-            <RemainingPlayer
-              gameID={game?.id ?? ''}
-              isLocked={isLocked}
-              key={player.id}
-              player={player}
-            />
+            <RemainingPlayer gameID={game.id} isLocked={isLocked} key={player.id} player={player} />
           ))}
         </div>
         <Divider my="md" />
@@ -113,12 +99,7 @@ function GamePage() {
           }}
         >
           {finished.map((player) => (
-            <FinishedPlayer
-              gameID={game?.id ?? ''}
-              isLocked={isLocked}
-              key={player.id}
-              player={player}
-            />
+            <FinishedPlayer gameID={game?.id} isLocked={isLocked} key={player.id} player={player} />
           ))}
         </div>
         <FloatingControls>

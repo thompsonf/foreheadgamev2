@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Anchor, Card, Stack, Text } from '@mantine/core';
-import { IPlayer } from './usePlayerList';
+import { IPlayer } from './usePlayerLists';
 
 export default function Player({
   content,

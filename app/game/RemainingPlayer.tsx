@@ -3,7 +3,7 @@ import { ref, remove, update } from 'firebase/database';
 import { Button, Group, Modal } from '@mantine/core';
 import { db } from '../db';
 import Player from './Player';
-import { IPlayer } from './usePlayerList';
+import { IRemainingPlayer } from './usePlayerLists';
 
 export default function RemainingPlayer({
   gameID,
@@ -12,7 +12,7 @@ export default function RemainingPlayer({
 }: {
   gameID: string;
   isLocked: boolean;
-  player: IPlayer;
+  player: IRemainingPlayer;
 }) {
   const [isShown, setIsShown] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
