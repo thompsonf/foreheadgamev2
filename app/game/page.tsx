@@ -1,21 +1,13 @@
 'use client';
 
 import { Suspense, useState } from 'react';
-import { redirect, useParams, useSearchParams } from 'next/navigation';
+import { redirect, useSearchParams } from 'next/navigation';
 import { IconLock, IconLockOpen } from '@tabler/icons-react';
 import { ref, remove } from 'firebase/database';
-import {
-  ActionIcon,
-  Anchor,
-  Button,
-  Divider,
-  Grid,
-  Group,
-  Loader,
-  Modal,
-  Title,
-} from '@mantine/core';
+import { ActionIcon, Button, Divider, Group, Loader, Modal, Stack, Title } from '@mantine/core';
+import ColorSchemeSwitcher from '../ColorSchemeSwitcher';
 import { db } from '../db';
+import FloatingControls from '../FloatingControls';
 import FinishedPlayer from './FinishedPlayer';
 import PlayerCreator from './PlayerCreator';
 import RemainingPlayer from './RemainingPlayer';
@@ -23,7 +15,6 @@ import useGame from './useGame';
 import usePlayerList from './usePlayerList';
 
 export default function GamePageWrapper() {
-  console.log('rendering game wrapper');
   return (
     <Suspense>
       <GamePage />
@@ -34,8 +25,6 @@ export default function GamePageWrapper() {
 function GamePage() {
   const params = useSearchParams();
   const gameID = params.get('id');
-
-  console.log('rendering game page with id', gameID);
 
   if (gameID == null) {
     throw new Error('invalid game ID');
@@ -132,15 +121,20 @@ function GamePage() {
             />
           ))}
         </div>
-        <ActionIcon
-          onClick={() => setIsLocked(!isLocked)}
-          variant="default"
-          size="xl"
-          aria-label={isLocked ? 'Unlock' : 'Lock'}
-          style={{ position: 'fixed', bottom: 8, right: 8, borderRadius: '100%' }}
-        >
-          {isLocked ? <IconLockOpen stroke={1.5} /> : <IconLock stroke={1.5} />}
-        </ActionIcon>
+        <FloatingControls>
+          <Stack>
+            <ColorSchemeSwitcher />
+            <ActionIcon
+              onClick={() => setIsLocked(!isLocked)}
+              variant="default"
+              size="xl"
+              aria-label={isLocked ? 'Unlock' : 'Lock'}
+              style={{ borderRadius: '100%' }}
+            >
+              {isLocked ? <IconLockOpen stroke={1.5} /> : <IconLock stroke={1.5} />}
+            </ActionIcon>
+          </Stack>
+        </FloatingControls>
         <Modal
           centered={true}
           onClose={() => setIsDeleting(false)}

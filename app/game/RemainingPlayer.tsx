@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ref, remove, update } from 'firebase/database';
-import { Button, Card, Group, Modal, Stack, Text } from '@mantine/core';
+import { Button, Group, Modal } from '@mantine/core';
 import { db } from '../db';
 import Player from './Player';
 import { IPlayer } from './usePlayerList';

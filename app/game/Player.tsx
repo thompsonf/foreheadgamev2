@@ -1,7 +1,5 @@
-import { ReactNode, useState } from 'react';
-import { ref, remove, update } from 'firebase/database';
-import { Anchor, Button, Card, Group, Modal, Stack, Text } from '@mantine/core';
-import { db } from '../db';
+import { ReactNode } from 'react';
+import { Anchor, Card, Stack, Text } from '@mantine/core';
 import { IPlayer } from './usePlayerList';
 
 export default function Player({
